@@ -1,20 +1,17 @@
-import sys
-
-def validate(s, first):
-    while s:
-        if s.startswith(first):
-            s = s[len(first):]
-            first = str(int(first) + 1)
-        else:
-            return False
-    return True
-
+def sequential(s,sub_string):
+    if not s: return True
+    if s.startswith(sub_string):
+        l = len(sub_string)
+        return sequential(s[l:],str(int(sub_string)+1))
+    return False
+    
 def separateNumbers(s):
-    if s[0] == '0' and len(s) > 1:
-        return "NO"
-    else:
-        for ind in range(1, len(s)//2 + 1):
-            first = s[:ind]
-            if validate(str(s), first):
-                return "YES " + first
+    for i in range(1,len(s)//2+1):
+        sub_string = s[:i]
+        if sequential(s,sub_string):
+            return "YES "+sub_string
     return "NO"
+
+for _ in range(int(input())):
+    s = input()
+    print(separateNumbers(s))
